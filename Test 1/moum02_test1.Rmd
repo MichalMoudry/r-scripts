@@ -1,7 +1,7 @@
 ---
 title: "Test 1"
 author: "Michal Moudrý"
-date: "4/1/2020"
+date: "4/6/2020"
 output: html_document
 ---
 
@@ -9,22 +9,131 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Obsah
+- [První úkol](#první-úkol)
+- [Druhý úkol](#druhý-úkol)
+- [Třetí úkol](#třetí-úkol)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## První úkol
+### Definice proměnných a funkcí
+```{r}
+osoby <- data.frame(
+  "osoba" = 1:30,
+  "IQ" = c(94, 75, 93, 91, 88, 79, 88, 84, 92, 90, 97, 100, 82, 86, 110, 96, 90, 92, 92, 99, 96, 103, 97, 88, 93, 90, 85, 86, 96, 86))
+rozptyl <- function(hodnoty) {
+  return((sum((hodnoty-mean(hodnoty))^2))/(length(hodnoty)))
+}
+odchylka <- function(hodnoty) {
+  return(sqrt((sum((hodnoty-mean(hodnoty))^2))/(length(hodnoty))))
+}
+var_koef <- function(hodnoty) {
+  return((sqrt((sum((hodnoty-mean(hodnoty))^2))/(length(hodnoty))))/mean(hodnoty))
+}
+#osobyTable <- table(osoby$IQ)
+#osobyTable <- as.data.frame(osobyTable)
+#colnames(osobyTable) = c("IQ", "Frekvence")
+#osobyTable$Relativni_cetnost <- osobyTable$Frekvence/sum(osobyTable$Frekvence)
+```
+### a)
+Identifikujte, o jakou statistickou proměnnou jde (kvantitativní spojitá, kvantitativní nespojitá, kvalitativní nominální, kvalitativní ordinální).
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+### b)
+S využitím vhodného typu grafu vizualizujte hodnoty tohoto statistického znaku.
+```{r}
+plot(osoby)
 ```
 
-## Including Plots
+### c)
+Vypočítejte [aritmetický](#aritmetický-průměr), [harmonický](#harmonický-průměr) a [geometrický průměr](#geometrický-průměr) IQ a uveďte, který z nich se nejlépe hodí pro popis průměrné hodnoty tohoto ukazatele a proč.
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+#### Aritmetický průměr
+```{r}
+sum(osoby$IQ)/length(osoby$IQ)
 ```
+
+#### Harmonický průměr
+```{r}
+length(osoby$IQ)/sum(1/osoby$IQ)
+```
+
+#### Geometrický průměr
+```{r}
+exp(mean(log(osoby$IQ)))
+```
+
+
+
+### d)
+Vypočítejte další charakteristiky polohy: [minimum](#minimum), [maximum](#maximum), [modus](#modus) (pokud existuje), [medián](#medián), [horní](#horní-kvartil) a [dolní kvartil](#dolní-kvartil) a všechny hodnoty slovně interpretujte.
+
+#### Minimum
+```{r}
+min(osoby$IQ)
+```
+`Slovní interpretace`: Hodnota minima statistického znaku IQ je 75, což znamená, že nejmenší hodnota v daném souboru je 75 IQ.
+
+#### Maximum
+```{r}
+max(osoby$IQ)
+```
+`Slovní interpretace`: Hodnota maxima statistického znaku IQ je 110, což znamená, že největší hodnota v daném souboru je 110 IQ.
+
+#### Modus
+```{r}
+library(modeest)
+mfv(osoby$IQ)
+```
+`Slovní interpretace:` Modus je nejčastější hodnotou v datovém souboru, tedy v tomto příkladě se jedná o IQ s hodnotou 86, 88, 90, 92, 96.
+
+#### Medián
+```{r}
+median(sort(osoby$IQ))
+```
+`Slovní interpretace`: Hodnota mediánu je 91.5, což znamená, že 50% hodnot ve statistickém souboru jsou menší než 91.5 IQ.
+
+#### Horní kvartil
+```{r}
+quantile(osoby$IQ, probs = 0.75)
+```
+`Slovní interpretace`: Hodnota horního kvartilu je 96, což znamená, že 75% hodnot ve statistickém souboru je menší než 96 IQ.
+
+#### Dolní kvartil
+```{r}
+quantile(osoby$IQ, probs = 0.25)
+```
+`Slovní interpretace`: Hodnota dolního kvartilu je 86.5, což znamená, že 25% hodnot ve statistickém souboru jsou menší než 86.5 IQ.
+
+### e)
+Vypočítejte míry absolutní variability: [variační rozpětí](#variační-rozpětí), [kvartilové rozpětí](#kvartilové-rozpětí), [rozptyl](#rozptyl) a [směrodatnou odchylku](#směrodatná-odchylka) a všechny hodnoty slovně interpretujte.
+
+#### Variační rozpětí
+```{r}
+max(osoby$IQ) - min(osoby$IQ)
+```
+`Slovní interpretace`: Hodnota variačního rozpětí je 35, což je hodnota, která určuje vzdálenost mezi nejmenší a největší hodnotou v datasetu, tedy v tomto případě mezi hodnotou 110 a 75.
+
+#### Kvartilové rozpětí
+```{r}
+
+```
+`Slovní interpretace`: 
+
+#### Rozptyl
+```{r}
+rozptyl(osoby$IQ)
+```
+`Slovní interpretace`: Hodnota rozptylu je 49.52889 ...
+
+#### Směrodatná odchylka
+```{r}
+odchylka(osoby$IQ)
+```
+`Slovní interpretace`: Hodnota směrodatné odchylky je 7.037676, což je hodnota, která ...
+
+### f)
+```{r}
+```
+
+### g)
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

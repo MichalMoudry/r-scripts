@@ -29,13 +29,15 @@ odchylka <- function(hodnoty) {
 var_koef <- function(hodnoty) {
   return((sqrt((sum((hodnoty-mean(hodnoty))^2))/(length(hodnoty))))/mean(hodnoty))
 }
-#osobyTable <- table(osoby$IQ)
-#osobyTable <- as.data.frame(osobyTable)
-#colnames(osobyTable) = c("IQ", "Frekvence")
-#osobyTable$Relativni_cetnost <- osobyTable$Frekvence/sum(osobyTable$Frekvence)
+tabulkaOsob <- table(osoby$IQ)
+tabulkaOsob <- as.data.frame(tabulkaOsob)
+colnames(tabulkaOsob) = c("IQ", "Frekvence")
+tabulkaOsob$Relativni_cetnost <- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekvence)
 ```
 ### a)
 Identifikujte, o jakou statistickou proměnnou jde (kvantitativní spojitá, kvantitativní nespojitá, kvalitativní nominální, kvalitativní ordinální).
+
+`Odpověď`: Jde o kvantitativní nespojitou statistickou proměnnou.
 
 ### b)
 S využitím vhodného typu grafu vizualizujte hodnoty tohoto statistického znaku.
@@ -131,9 +133,26 @@ odchylka(osoby$IQ)
 `Slovní interpretace`: Hodnota směrodatné odchylky je 7.037676, což je hodnota, která ...
 
 ### f)
+Vypočítejte míru relativní variability: [variační koeficient](#variační-koeficient) a danou hodnotu slovně interpretujte.
+
+#### Rozptyl z relativní četnosti
 ```{r}
+tabulkaCetnostiIQ <- as.data.frame(as.numeric(levels(tabulkaOsob$IQ)))
+colnames(tabulkaCetnostiIQ) = c("IQ");
+rozptyl_z_rel_cetnosti <- sum(((tabulkaCetnostiIQ$IQ - mean(tabulkaCetnostiIQ$IQ))^2)*tabulkaOsob$Relativni_cetnost)
+rozptyl_z_rel_cetnosti
 ```
 
-### g)
+#### Variační koeficient
+```{r}
+sqrt(rozptyl_z_rel_cetnosti)/mean(osoby$IQ)
+```
+`Slovní interpretace`: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, tedy hodnota vyjadřuje celkovou míru variablity v souboru.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+### g)
+Odpovídá podle Vás analyzovaná proměnná IQ normálnímu rozdělení? Uveďte argumenty, které podporují Vaše rozhodnutí.
+
+`Odpověď`: 
+
+## Druhý úkol
+

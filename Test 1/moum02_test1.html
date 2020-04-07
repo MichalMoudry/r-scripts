@@ -393,13 +393,15 @@ odchylka &lt;- function(hodnoty) {
 var_koef &lt;- function(hodnoty) {
   return((sqrt((sum((hodnoty-mean(hodnoty))^2))/(length(hodnoty))))/mean(hodnoty))
 }
-#osobyTable &lt;- table(osoby$IQ)
-#osobyTable &lt;- as.data.frame(osobyTable)
-#colnames(osobyTable) = c(&quot;IQ&quot;, &quot;Frekvence&quot;)</code></pre>
+tabulkaOsob &lt;- table(osoby$IQ)
+tabulkaOsob &lt;- as.data.frame(tabulkaOsob)
+colnames(tabulkaOsob) = c(&quot;IQ&quot;, &quot;Frekvence&quot;)
+tabulkaOsob$Relativni_cetnost &lt;- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekvence)</code></pre>
 </div>
 <div id="a" class="section level3">
 <h3>a)</h3>
 <p>Identifikujte, o jakou statistickou proměnnou jde (kvantitativní spojitá, kvantitativní nespojitá, kvalitativní nominální, kvalitativní ordinální).</p>
+<p><code>Odpověď</code>: Jde o kvantitativní nespojitou statistickou proměnnou.</p>
 </div>
 <div id="b" class="section level3">
 <h3>b)</h3>
@@ -466,7 +468,7 @@ mfv(osoby$IQ)</code></pre>
 <pre class="r"><code>quantile(osoby$IQ, probs = 0.25)</code></pre>
 <pre><code>##  25% 
 ## 86.5</code></pre>
-<p><code>Slovní interpretace</code>: Hodnota dolního kvartilu je 96, což znamená, že 25% hodnot ve statistickém souboru jsou menší než 86.5 IQ.</p>
+<p><code>Slovní interpretace</code>: Hodnota dolního kvartilu je 86.5, což znamená, že 25% hodnot ve statistickém souboru jsou menší než 86.5 IQ.</p>
 </div>
 </div>
 <div id="e" class="section level3">
@@ -497,14 +499,30 @@ mfv(osoby$IQ)</code></pre>
 </div>
 <div id="f" class="section level3">
 <h3>f)</h3>
-<pre class="r"><code>summary(osoby$IQ)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   75.00   86.50   91.50   91.27   96.00  110.00</code></pre>
+<p>Vypočítejte míru relativní variability: <a href="#variační-koeficient">variační koeficient</a> a danou hodnotu slovně interpretujte.</p>
+<div id="rozptyl-z-relativní-četnosti" class="section level4">
+<h4>Rozptyl z relativní četnosti</h4>
+<pre class="r"><code>tabulkaCetnostiIQ &lt;- as.data.frame(as.numeric(levels(tabulkaOsob$IQ)))
+colnames(tabulkaCetnostiIQ) = c(&quot;IQ&quot;);
+rozptyl_z_rel_cetnosti &lt;- sum(((tabulkaCetnostiIQ$IQ - mean(tabulkaCetnostiIQ$IQ))^2)*tabulkaOsob$Relativni_cetnost)
+rozptyl_z_rel_cetnosti</code></pre>
+<pre><code>## [1] 49.53333</code></pre>
+</div>
+<div id="variační-koeficient" class="section level4">
+<h4>Variační koeficient</h4>
+<pre class="r"><code>sqrt(rozptyl_z_rel_cetnosti)/mean(osoby$IQ)</code></pre>
+<pre><code>## [1] 0.0771146</code></pre>
+<p><code>Slovní interpretace</code>: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, tedy hodnota vyjadřuje celkovou míru variablity v souboru.</p>
+</div>
 </div>
 <div id="g" class="section level3">
 <h3>g)</h3>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
+<p>Odpovídá podle Vás analyzovaná proměnná IQ normálnímu rozdělení? Uveďte argumenty, které podporují Vaše rozhodnutí.</p>
+<p><code>Odpověď</code>:</p>
 </div>
+</div>
+<div id="druhý-úkol" class="section level2">
+<h2>Druhý úkol</h2>
 </div>
 
 

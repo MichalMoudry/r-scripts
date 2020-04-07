@@ -155,4 +155,68 @@ Odpovídá podle Vás analyzovaná proměnná IQ normálnímu rozdělení? Uveď
 `Odpověď`: 
 
 ## Druhý úkol
+Jaká je pravděpodobnost, že z 9 kol losování rulety obdržíme:
 
+a) [6-krát číslo červené barvy](#a-1)
+b) [8-krát liché číslo](#b-1)
+c) [maximálně 4-krát číslo dělitelné 4](#c-1)
+d) [alespoň 8-krát číslo větší než 7](#d-1)
+
+### a)
+x = 6 ... označuje kolikrát má padnout červená barva
+
+n (size) = 9 ... počet pokusů
+
+prob = počet červených čísel / počtem všech čísel (včetně nuly) = choose(18, 1) / choose(37, 1) = 18 / 37
+```{r}
+dbinom(x = 6, size = 9, prob = 18 / 37)
+```
+
+### b)
+x = 8 ... označuje kolikrát má padnout liché číslo
+
+n (size) = 9 ... počet pokusů
+
+prob = počet lichých čísel / počtem všech čísel (včetně nuly) = choose(11, 1) / choose(37, 1) = 11 / 37
+```{r}
+dbinom(x = 8, size = 9, prob = 11 / 37)
+```
+
+### c)
+q = 4 ... označuje kolikrát maximálně má padnout číslo dělitelné 4
+
+n (size) = 9 ... počet pokusů
+
+prob = počet čísel dělitelných 4 / počtem všech čísel (včetně nuly) = choose(9, 1) / choose(37, 1) = 9 / 37
+```{r}
+pbinom(q = 4, size = 9, prob = 9 / 37)
+```
+
+### d)
+počet čísel větších než 7 = 29
+
+q = 8 ... označuje kolikrát má padnout číslo větší než 7 (>=)
+
+n (size) = 9 ... počet pokusů
+
+`Výpočet`: 1 - pravděpodobnost, že alespoň padne číslo menší než 7 8-krát
+```{r}
+1 - pbinom(q = 7, size = 9, prob = 8 / 37)
+```
+
+## Třetí úkol
+Výsledek měření proudu je náhodná veličina X s normálním rozdělením se střední hodnotou 𝜇 = 10 mA a směrodatnou odchylkou 𝜎 = 2 mA. Vypočítejte pravděpodobnost, že při náhodném měření bude naměřeno:
+
+a) [méně než 14 mA](#a-2)
+b) [více než 6 mA](#b-2)
+c) [více než 6 mA a méně než 14 mA](#c-2)
+d) [jakou hodnotu v mA překročí 85 % měření](#d-2)
+
+
+### a)
+
+### b)
+
+### c)
+
+### d)

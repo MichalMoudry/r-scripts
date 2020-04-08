@@ -10,12 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Obsah
+- [Definice proměnných a funkcí](#definice-proměnných-a-funkcí)
 - [První úkol](#první-úkol)
 - [Druhý úkol](#druhý-úkol)
 - [Třetí úkol](#třetí-úkol)
 
-## První úkol
-### Definice proměnných a funkcí
+## Definice proměnných a funkcí
 ```{r}
 osoby <- data.frame(
   "osoba" = 1:30,
@@ -34,6 +34,9 @@ tabulkaOsob <- as.data.frame(tabulkaOsob)
 colnames(tabulkaOsob) = c("IQ", "Frekvence")
 tabulkaOsob$Relativni_cetnost <- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekvence)
 ```
+
+## První úkol
+
 ### a)
 Identifikujte, o jakou statistickou proměnnou jde (kvantitativní spojitá, kvantitativní nespojitá, kvalitativní nominální, kvalitativní ordinální).
 
@@ -116,7 +119,7 @@ max(osoby$IQ) - min(osoby$IQ)
 
 #### Kvartilové rozpětí
 ```{r}
-
+quantile(osoby$IQ, probs = 0.75) - quantile(osoby$IQ, probs = 0.25)
 ```
 `Slovní interpretace`: 
 
@@ -124,13 +127,13 @@ max(osoby$IQ) - min(osoby$IQ)
 ```{r}
 rozptyl(osoby$IQ)
 ```
-`Slovní interpretace`: Hodnota rozptylu je 49.52889 ...
+`Slovní interpretace`: Hodnota rozptylu je 49.52889, přičemž tato hodnota udává variablitu ve statistickém souboru.
 
 #### Směrodatná odchylka
 ```{r}
 odchylka(osoby$IQ)
 ```
-`Slovní interpretace`: Hodnota směrodatné odchylky je 7.037676, což je hodnota, která ...
+`Slovní interpretace`: Hodnota směrodatné odchylky je 7.037676, což je hodnota získaná odmocněním rozptylu a vypovídá o tom, nakolik se od sebe liší jednotlivé prvky v souboru.
 
 ### f)
 Vypočítejte míru relativní variability: [variační koeficient](#variační-koeficient) a danou hodnotu slovně interpretujte.
@@ -147,7 +150,7 @@ rozptyl_z_rel_cetnosti
 ```{r}
 sqrt(rozptyl_z_rel_cetnosti)/mean(osoby$IQ)
 ```
-`Slovní interpretace`: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, tedy hodnota vyjadřuje celkovou míru variablity v souboru.
+`Slovní interpretace`: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, je tedy .
 
 ### g)
 Odpovídá podle Vás analyzovaná proměnná IQ normálnímu rozdělení? Uveďte argumenty, které podporují Vaše rozhodnutí.
@@ -214,9 +217,36 @@ d) [jakou hodnotu v mA překročí 85 % měření](#d-2)
 
 
 ### a)
+q ... horní hodnota rozmezí ()
+
+ = 13mean ... střední hodnota
+
+ = 10sd = směrodatná odchylka
+` = 2``{r}
+pnorm(q = 13, mean = 10, sd = 2)
+```
+
 
 ### b)
+q ... dolní hodnota rozmezí (je třeba více než 6, proto q = 7)
+``
+mean ... střední hodnota = 10
+
+sd = směrodatná odchylka = 2
+`{r}
+pnorm(q = 7, mean = 10, sd = 2)
+```
 
 ### c)
+``q1 ... dolní hodnota rozmezí = 7
+
+q2 ... horní hodnota rozmezí = 13
+
+mean ... střední hodnota = 10
+
+sd = směrodatná odchylka = 2
+`{r}
+pnorm(q = 13, mean = 10, sd = 2) - pnorm(q = 7, mean = 10, sd = 2)
+```
 
 ### d)

@@ -372,15 +372,14 @@ summary {
 <div id="obsah" class="section level2">
 <h2>Obsah</h2>
 <ul>
+<li><a href="#definice-proměnných-a-funkcí">Definice proměnných a funkcí</a></li>
 <li><a href="#první-úkol">První úkol</a></li>
 <li><a href="#druhý-úkol">Druhý úkol</a></li>
 <li><a href="#třetí-úkol">Třetí úkol</a></li>
 </ul>
 </div>
-<div id="první-úkol" class="section level2">
-<h2>První úkol</h2>
-<div id="definice-proměnných-a-funkcí" class="section level3">
-<h3>Definice proměnných a funkcí</h3>
+<div id="definice-proměnných-a-funkcí" class="section level2">
+<h2>Definice proměnných a funkcí</h2>
 <pre class="r"><code>osoby &lt;- data.frame(
   &quot;osoba&quot; = 1:30,
   &quot;IQ&quot; = c(94, 75, 93, 91, 88, 79, 88, 84, 92, 90, 97, 100, 82, 86, 110, 96, 90, 92, 92, 99, 96, 103, 97, 88, 93, 90, 85, 86, 96, 86))
@@ -398,6 +397,8 @@ tabulkaOsob &lt;- as.data.frame(tabulkaOsob)
 colnames(tabulkaOsob) = c(&quot;IQ&quot;, &quot;Frekvence&quot;)
 tabulkaOsob$Relativni_cetnost &lt;- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekvence)</code></pre>
 </div>
+<div id="první-úkol" class="section level2">
+<h2>První úkol</h2>
 <div id="a" class="section level3">
 <h3>a)</h3>
 <p>Identifikujte, o jakou statistickou proměnnou jde (kvantitativní spojitá, kvantitativní nespojitá, kvalitativní nominální, kvalitativní ordinální).</p>
@@ -482,19 +483,22 @@ mfv(osoby$IQ)</code></pre>
 </div>
 <div id="kvartilové-rozpětí" class="section level4">
 <h4>Kvartilové rozpětí</h4>
+<pre class="r"><code>quantile(osoby$IQ, probs = 0.75) - quantile(osoby$IQ, probs = 0.25)</code></pre>
+<pre><code>## 75% 
+## 9.5</code></pre>
 <p><code>Slovní interpretace</code>:</p>
 </div>
 <div id="rozptyl" class="section level4">
 <h4>Rozptyl</h4>
 <pre class="r"><code>rozptyl(osoby$IQ)</code></pre>
 <pre><code>## [1] 49.52889</code></pre>
-<p><code>Slovní interpretace</code>: Hodnota rozptylu je 49.52889 …</p>
+<p><code>Slovní interpretace</code>: Hodnota rozptylu je 49.52889, přičemž tato hodnota udává variablitu ve statistickém souboru.</p>
 </div>
 <div id="směrodatná-odchylka" class="section level4">
 <h4>Směrodatná odchylka</h4>
 <pre class="r"><code>odchylka(osoby$IQ)</code></pre>
 <pre><code>## [1] 7.037676</code></pre>
-<p><code>Slovní interpretace</code>: Hodnota směrodatné odchylky je 7.037676, což je hodnota, která …</p>
+<p><code>Slovní interpretace</code>: Hodnota směrodatné odchylky je 7.037676, což je hodnota získaná odmocněním rozptylu a vypovídá o tom, nakolik se od sebe liší jednotlivé prvky v souboru.</p>
 </div>
 </div>
 <div id="f" class="section level3">
@@ -512,7 +516,7 @@ rozptyl_z_rel_cetnosti</code></pre>
 <h4>Variační koeficient</h4>
 <pre class="r"><code>sqrt(rozptyl_z_rel_cetnosti)/mean(osoby$IQ)</code></pre>
 <pre><code>## [1] 0.0771146</code></pre>
-<p><code>Slovní interpretace</code>: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, tedy hodnota vyjadřuje celkovou míru variablity v souboru.</p>
+<p><code>Slovní interpretace</code>: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, je tedy .</p>
 </div>
 </div>
 <div id="g" class="section level3">
@@ -575,12 +579,22 @@ rozptyl_z_rel_cetnosti</code></pre>
 </ol>
 <div id="a-2" class="section level3">
 <h3>a)</h3>
+<p>q … horní hodnota rozmezí ()</p>
+<p>mean … střední hodnota</p>
+<p>sd = s</p>
+<pre class="r"><code>pnorm(q = 13, mean = 10, sd = 2)</code></pre>
+<pre><code>## [1] 0.9331928</code></pre>
 </div>
 <div id="b-2" class="section level3">
 <h3>b)</h3>
+<p>q … dolní hodnota rozmezí (je třeba více než 6, proto q = 7)</p>
+<pre class="r"><code>pnorm(q = 7, mean = 10, sd = 2)</code></pre>
+<pre><code>## [1] 0.0668072</code></pre>
 </div>
 <div id="c-2" class="section level3">
 <h3>c)</h3>
+<pre class="r"><code>pnorm(q = 13, mean = 10, sd = 2) - pnorm(q = 7, mean = 10, sd = 2)</code></pre>
+<pre><code>## [1] 0.8663856</code></pre>
 </div>
 <div id="d-2" class="section level3">
 <h3>d)</h3>

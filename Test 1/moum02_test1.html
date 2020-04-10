@@ -364,7 +364,7 @@ summary {
 
 <h1 class="title toc-ignore">Test 1</h1>
 <h4 class="author">Michal Moudrý</h4>
-<h4 class="date">4/6/2020</h4>
+<h4 class="date">4/10/2020</h4>
 
 </div>
 
@@ -402,7 +402,7 @@ tabulkaOsob$Relativni_cetnost &lt;- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekve
 <div id="a" class="section level3">
 <h3>a)</h3>
 <p>Identifikujte, o jakou statistickou proměnnou jde (kvantitativní spojitá, kvantitativní nespojitá, kvalitativní nominální, kvalitativní ordinální).</p>
-<p><code>Odpověď</code>: Jde o kvantitativní nespojitou statistickou proměnnou.</p>
+<p><code>Odpověď</code>: Jde o kvantitativní nespojitou (diskrétní) statistickou proměnnou.</p>
 </div>
 <div id="b" class="section level3">
 <h3>b)</h3>
@@ -413,6 +413,7 @@ tabulkaOsob$Relativni_cetnost &lt;- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekve
 <div id="c" class="section level3">
 <h3>c)</h3>
 <p>Vypočítejte <a href="#aritmetický-průměr">aritmetický</a>, <a href="#harmonický-průměr">harmonický</a> a <a href="#geometrický-průměr">geometrický průměr</a> IQ a uveďte, který z nich se nejlépe hodí pro popis průměrné hodnoty tohoto ukazatele a proč.</p>
+<p><code>Odpověď</code>: V případě ukazatele IQ je asi nejvhodnější harmonický průměr, protože daný průměr je vhodný pro sadu čísel, jež mají vztah k nějaké jednotce (např. jednotka času), tedy by se hodil pro popis jednotky inteligenčního kvocientu.</p>
 <div id="aritmetický-průměr" class="section level4">
 <h4>Aritmetický průměr</h4>
 <pre class="r"><code>sum(osoby$IQ)/length(osoby$IQ)</code></pre>
@@ -447,9 +448,9 @@ tabulkaOsob$Relativni_cetnost &lt;- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekve
 <div id="modus" class="section level4">
 <h4>Modus</h4>
 <pre class="r"><code>library(modeest)
-mfv(osoby$IQ)</code></pre>
+mfv(sort(osoby$IQ))</code></pre>
 <pre><code>## [1] 86 88 90 92 96</code></pre>
-<p><code>Slovní interpretace:</code> Modus je nejčastější hodnotou v datovém souboru, tedy v tomto příkladě se jedná o IQ s hodnotou 86, 88, 90, 92, 96.</p>
+<p><code>Slovní interpretace:</code> Modus je nejčastější hodnotou v datovém souboru, tedy v tomto příkladě je nečastější hodnota IQ 86, 88, 90, 92, 96 (viz. frekvenční tabulka) a jelikož to není jedna hodnota, tak modus nemůže být jednoznačně určen.</p>
 </div>
 <div id="medián" class="section level4">
 <h4>Medián</h4>
@@ -486,7 +487,7 @@ mfv(osoby$IQ)</code></pre>
 <pre class="r"><code>quantile(osoby$IQ, probs = 0.75) - quantile(osoby$IQ, probs = 0.25)</code></pre>
 <pre><code>## 75% 
 ## 9.5</code></pre>
-<p><code>Slovní interpretace</code>:</p>
+<p><code>Slovní interpretace</code>: Hodnota kvartilového rozpětí je 9.5, což je hodnota, která označuje rozdíl mezi horním a dolním kvartilem, tedy v tomto případě mezi hodnotami 96 a 86.5.</p>
 </div>
 <div id="rozptyl" class="section level4">
 <h4>Rozptyl</h4>
@@ -504,6 +505,7 @@ mfv(osoby$IQ)</code></pre>
 <div id="f" class="section level3">
 <h3>f)</h3>
 <p>Vypočítejte míru relativní variability: <a href="#variační-koeficient">variační koeficient</a> a danou hodnotu slovně interpretujte.</p>
+<p><code>Poznámka</code>: Tady jsem myslel, že mám míru variablity spočítat pomocí rozptylu z relativní četnosti (nevěděl jsem, že mi vyjde stejný výsledek jako u rozptylu), ale rozhodl jsem se to tu nechat</p>
 <div id="rozptyl-z-relativní-četnosti" class="section level4">
 <h4>Rozptyl z relativní četnosti</h4>
 <pre class="r"><code>tabulkaCetnostiIQ &lt;- as.data.frame(as.numeric(levels(tabulkaOsob$IQ)))
@@ -516,88 +518,120 @@ rozptyl_z_rel_cetnosti</code></pre>
 <h4>Variační koeficient</h4>
 <pre class="r"><code>sqrt(rozptyl_z_rel_cetnosti)/mean(osoby$IQ)</code></pre>
 <pre><code>## [1] 0.0771146</code></pre>
-<p><code>Slovní interpretace</code>: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, je tedy .</p>
+<p><code>Slovní interpretace</code>: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, je to tedy hodnota vyjadřující poměr mezi směrodatnou odchylkou a průměrnou hodnotou statistického znaku v souboru.</p>
 </div>
 </div>
 <div id="g" class="section level3">
 <h3>g)</h3>
 <p>Odpovídá podle Vás analyzovaná proměnná IQ normálnímu rozdělení? Uveďte argumenty, které podporují Vaše rozhodnutí.</p>
-<p><code>Odpověď</code>:</p>
+<p><code>Odpověď</code>: Ano, z větší části odpovídá křivce hustoty normálního rozdělení, tedy nejméně hodnot je na začátku, na konci a nějvětší počet hodnot je kolem středu (průměru). Danou skutečnost lze vidět na histogramu IQ osob v souboru.</p>
+<pre class="r"><code>hist(osoby$IQ)</code></pre>
+<p><img src="data:image/png;base64,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QS+Pmycj4DB5kUykGPTyuHkyAg6TF8lEikEvj5snI+AweZFMpBj08rh5MgIOkxfJRIpBL4+bJyPgMHmRTKQY9PK4eTICDpMXyUSKQS+Pmycj4DB5kUykGPTyuHkyAg6TF8lEikEvj5snI+AweZFMpBj08rh5MgIOkxfJRIpBL4+bJyPgMHmRTKQY9PK4eTICDpMXyUSKQS+Pmycj4DB5kUykGPTyuHkyAg6TF8lEikEvj5snI+AweZFMpBj08rh5MgIOkxfJRIpBL89eb57Wny9VVOmJrOBFMpFi0Muzx5undFm2KT2TFbxIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86LxEwkokUg16ePd48vOi8RMBIJlIMenn2ePPwovMSASOZSDHo5dnjzcOLzksEjGQixaCXZ483Dy86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" width="672" /></p>
 </div>
 </div>
 <div id="druhý-úkol" class="section level2">
 <h2>Druhý úkol</h2>
 <p>Jaká je pravděpodobnost, že z 9 kol losování rulety obdržíme:</p>
 <ol style="list-style-type: lower-alpha">
-<li><a href="#a-1">6-krát číslo červené barvy</a></li>
-<li><a href="#b-1">8-krát liché číslo</a></li>
-<li><a href="#c-1">maximálně 4-krát číslo dělitelné 4</a></li>
-<li><a href="#d-1">alespoň 8-krát číslo větší než 7</a></li>
+<li><a href="#a-6-krát-číslo-červené-barvy">6-krát číslo červené barvy</a></li>
+<li><a href="#b-8-krát-liché-číslo">8-krát liché číslo</a></li>
+<li><a href="#c-maximálně-4-krát-číslo-dělitelné-4">maximálně 4-krát číslo dělitelné 4</a></li>
+<li><a href="#d-alespoň-8-krát-číslo-větší-než-7">alespoň 8-krát číslo větší než 7</a></li>
 </ol>
-<div id="a-1" class="section level3">
-<h3>a)</h3>
+<p>V tomto cvičení jsem použil vzorce binomockého rozdělení, tedy pro výpočet pravděpodobnostní funkce jsem použil funkci dbinom a pro výpočet distribuční funkce jsem použil pbinom.</p>
+<div id="a-6-krát-číslo-červené-barvy" class="section level3">
+<h3>a) 6-krát číslo červené barvy</h3>
 <p>x = 6 … označuje kolikrát má padnout červená barva</p>
 <p>n (size) = 9 … počet pokusů</p>
 <p>prob = počet červených čísel / počtem všech čísel (včetně nuly) = choose(18, 1) / choose(37, 1) = 18 / 37</p>
 <pre class="r"><code>dbinom(x = 6, size = 9, prob = 18 / 37)</code></pre>
 <pre><code>## [1] 0.1507855</code></pre>
+<p><code>Slovní odpověď</code>: Pravděpodobnost, že z 9 kol losování rulety obdržíme 6-krát číslo červené barvy je přibližně 15,1 %.</p>
 </div>
-<div id="b-1" class="section level3">
-<h3>b)</h3>
+<div id="b-8-krát-liché-číslo" class="section level3">
+<h3>b) 8-krát liché číslo</h3>
 <p>x = 8 … označuje kolikrát má padnout liché číslo</p>
 <p>n (size) = 9 … počet pokusů</p>
-<p>prob = počet lichých čísel / počtem všech čísel (včetně nuly) = choose(11, 1) / choose(37, 1) = 11 / 37</p>
-<pre class="r"><code>dbinom(x = 8, size = 9, prob = 11 / 37)</code></pre>
-<pre><code>## [1] 0.0003859596</code></pre>
+<p>prob = počet lichých čísel / počtem všech čísel (včetně nuly) = choose(18, 1) / choose(37, 1) = 18 / 37</p>
+<pre class="r"><code>dbinom(x = 8, size = 9, prob = 18 / 37)</code></pre>
+<pre><code>## [1] 0.01449975</code></pre>
+<p><code>Slovní odpověď</code>: Pravděpodobnost, že z 9 kol losování rulety obdržíme 8-krát liché číslo je přibližně 1,5 %.</p>
 </div>
-<div id="c-1" class="section level3">
-<h3>c)</h3>
+<div id="c-maximálně-4-krát-číslo-dělitelné-4" class="section level3">
+<h3>c) maximálně 4-krát číslo dělitelné 4</h3>
 <p>q = 4 … označuje kolikrát maximálně má padnout číslo dělitelné 4</p>
 <p>n (size) = 9 … počet pokusů</p>
 <p>prob = počet čísel dělitelných 4 / počtem všech čísel (včetně nuly) = choose(9, 1) / choose(37, 1) = 9 / 37</p>
 <pre class="r"><code>pbinom(q = 4, size = 9, prob = 9 / 37)</code></pre>
 <pre><code>## [1] 0.956146</code></pre>
+<p><code>Slovní odpověď</code>: Pravděpodobnost, že z 9 kol losování rulety obdržíme maximálně 4-krát číslo dělitelné 4 je přibližně 95,6 %.</p>
 </div>
-<div id="d-1" class="section level3">
-<h3>d)</h3>
+<div id="d-alespoň-8-krát-číslo-větší-než-7" class="section level3">
+<h3>d) alespoň 8-krát číslo větší než 7</h3>
 <p>počet čísel větších než 7 = 29</p>
 <p>q = 8 … označuje kolikrát má padnout číslo větší než 7 (&gt;=)</p>
 <p>n (size) = 9 … počet pokusů</p>
-<p><code>Výpočet</code>: 1 - pravděpodobnost, že alespoň padne číslo menší než 7 8-krát</p>
-<pre class="r"><code>1 - pbinom(q = 7, size = 9, prob = 8 / 37)</code></pre>
-<pre><code>## [1] 3.472615e-05</code></pre>
+<p><code>Výpočet</code>: P(A &gt;= 8) = 1 - F(A &lt; 8) = 1 - pravděpodobnost, že alespoň padne číslo menší než nebo rovno 7</p>
+<pre class="r"><code>1 - pbinom(q = 8, size = 9, prob = 29 / 37)</code></pre>
+<pre><code>## [1] 0.1116263</code></pre>
+<p><code>Slovní odpověď</code>: Pravděpodobnost, že z 9 kol losování rulety obdržíme alespoň 8-krát číslo větší než 7 je přibližně 11,2 %.</p>
 </div>
 </div>
 <div id="třetí-úkol" class="section level2">
 <h2>Třetí úkol</h2>
 <p>Výsledek měření proudu je náhodná veličina X s normálním rozdělením se střední hodnotou 𝜇 = 10 mA a směrodatnou odchylkou 𝜎 = 2 mA. Vypočítejte pravděpodobnost, že při náhodném měření bude naměřeno:</p>
 <ol style="list-style-type: lower-alpha">
-<li><a href="#a-2">méně než 14 mA</a></li>
-<li><a href="#b-2">více než 6 mA</a></li>
-<li><a href="#c-2">více než 6 mA a méně než 14 mA</a></li>
-<li><a href="#d-2">jakou hodnotu v mA překročí 85 % měření</a></li>
+<li><a href="#a-méně-než-14-ma">méně než 14 mA</a></li>
+<li><a href="#b-více-než-6-ma">více než 6 mA</a></li>
+<li><a href="#c-více-než-6-ma-a-méně-než-14-ma">více než 6 mA a méně než 14 mA</a></li>
+<li><a href="#d-jakou-hodnotu-v-ma-překročí-85-měření">jakou hodnotu v mA překročí 85 % měření</a></li>
 </ol>
-<div id="a-2" class="section level3">
-<h3>a)</h3>
-<p>q … horní hodnota rozmezí ()</p>
-<p>mean … střední hodnota</p>
-<p>sd = s</p>
-<pre class="r"><code>pnorm(q = 13, mean = 10, sd = 2)</code></pre>
-<pre><code>## [1] 0.9331928</code></pre>
+<p>V rámci tohoto cvičení jsem použil vzorce normálního rozdělení a to konkrétně pro výpočet distribuční funkce (pnorm) a qnorm pro vyhlednání hodnot z tabulek.</p>
+<div id="a-méně-než-14-ma" class="section level3">
+<h3>a) méně než 14 mA</h3>
+<p><code>Poznámka</code>: Z hodin elektrotechniky si toho moc nepamatuji, ale nemyslím si, že proud by mohl jít do záporu, což by odpovídalo koncepci Gaussovy diody, proto jsem zvolil rozmezí &lt;0;13&gt;</p>
+<p>q2 … horní hodnota rozmezí (chceme hodnoty menší než 14 mA proto je q2 rovno 13) = 13</p>
+<p>q1 … dolní hodnota rozmezí (minimální naměřený proud) = 0</p>
+<p>mean … střední hodnota = 10</p>
+<p>sd … směrodatná odchylka = 2</p>
+<pre class="r"><code>pnorm(q = 13, mean = 10, sd = 2) - pnorm(q = 0, mean = 10, sd = 2)</code></pre>
+<pre><code>## [1] 0.9331925</code></pre>
+<pre class="r"><code># pnorm(q = 0, mean = 10, sd = 2) ... přestože se nejedná o velké číslo, tak dle mé poznámky by se mělo odečíst.</code></pre>
+<p><code>Slovní interpretace</code>: Pravděpodobnost, že naměříme proud menší než 14 mA je 93,3 %.</p>
 </div>
-<div id="b-2" class="section level3">
-<h3>b)</h3>
+<div id="b-více-než-6-ma" class="section level3">
+<h3>b) více než 6 mA</h3>
 <p>q … dolní hodnota rozmezí (je třeba více než 6, proto q = 7)</p>
-<pre class="r"><code>pnorm(q = 7, mean = 10, sd = 2)</code></pre>
-<pre><code>## [1] 0.0668072</code></pre>
+<p>mean … střední hodnota = 10</p>
+<p>sd … směrodatná odchylka = 2</p>
+<pre class="r"><code>pnorm(q = 6, mean = 10, sd = 2, lower.tail = FALSE)</code></pre>
+<pre><code>## [1] 0.9772499</code></pre>
+<p><code>Slovní interpretace</code>: Pravděpodobnost, že naměříme proud větší než 6 mA je přibližně 97,7 %.</p>
 </div>
-<div id="c-2" class="section level3">
-<h3>c)</h3>
+<div id="c-více-než-6-ma-a-méně-než-14-ma" class="section level3">
+<h3>c) více než 6 mA a méně než 14 mA</h3>
+<p>q1 … dolní hodnota rozmezí = 7</p>
+<p>q2 … horní hodnota rozmezí = 13</p>
+<p>mean … střední hodnota = 10</p>
+<p>sd = směrodatná odchylka = 2</p>
 <pre class="r"><code>pnorm(q = 13, mean = 10, sd = 2) - pnorm(q = 7, mean = 10, sd = 2)</code></pre>
 <pre><code>## [1] 0.8663856</code></pre>
+<p><code>Slovní interpretace</code>: Pravděpodobnost, že naměříme proud v rozmezí 6 mA a 14 mA je 86,6 %.</p>
 </div>
-<div id="d-2" class="section level3">
-<h3>d)</h3>
+<div id="d-jakou-hodnotu-v-ma-překročí-85-měření" class="section level3">
+<h3>d) jakou hodnotu v mA překročí 85 % měření</h3>
+<p>Výpočet 85 % kvantilu - x0,85</p>
+<p>x0,85 = u0,85 * 𝜎 + 𝜇</p>
+<p>u0,85 = 1.036433</p>
+<p>𝜎 = 2</p>
+<p>𝜇 = 10</p>
+<p>x0,85 = 1.036433 * 2 + 10 = 12.07287</p>
+<pre class="r"><code>qnorm(p = 0.85, mean = 0, sd = 1)</code></pre>
+<pre><code>## [1] 1.036433</code></pre>
+<pre class="r"><code>x0.85 &lt;- qnorm(p = 0.85, mean = 0, sd = 1) * 2 + 10
+x0.85</code></pre>
+<pre><code>## [1] 12.07287</code></pre>
+<p><code>Slovní interpretace</code>: Při přibližné hodnotě 12,1 mA je překročeno 85 % měření.</p>
 </div>
 </div>
 

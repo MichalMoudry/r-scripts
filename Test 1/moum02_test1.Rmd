@@ -1,7 +1,7 @@
 ---
 title: "Test 1"
 author: "Michal Moudrý"
-date: "4/6/2020"
+date: "4/10/2020"
 output: html_document
 ---
 
@@ -40,7 +40,7 @@ tabulkaOsob$Relativni_cetnost <- tabulkaOsob$Frekvence/sum(tabulkaOsob$Frekvence
 ### a)
 Identifikujte, o jakou statistickou proměnnou jde (kvantitativní spojitá, kvantitativní nespojitá, kvalitativní nominální, kvalitativní ordinální).
 
-`Odpověď`: Jde o kvantitativní nespojitou statistickou proměnnou.
+`Odpověď`: Jde o kvantitativní nespojitou (diskrétní) statistickou proměnnou.
 
 ### b)
 S využitím vhodného typu grafu vizualizujte hodnoty tohoto statistického znaku.
@@ -50,6 +50,8 @@ plot(osoby)
 
 ### c)
 Vypočítejte [aritmetický](#aritmetický-průměr), [harmonický](#harmonický-průměr) a [geometrický průměr](#geometrický-průměr) IQ a uveďte, který z nich se nejlépe hodí pro popis průměrné hodnoty tohoto ukazatele a proč.
+
+`Odpověď`: V případě ukazatele IQ je asi nejvhodnější harmonický průměr, protože daný průměr je vhodný pro sadu čísel, jež mají vztah k nějaké jednotce (např. jednotka času), tedy by se hodil pro popis jednotky inteligenčního kvocientu.
 
 #### Aritmetický průměr
 ```{r}
@@ -65,8 +67,6 @@ length(osoby$IQ)/sum(1/osoby$IQ)
 ```{r}
 exp(mean(log(osoby$IQ)))
 ```
-
-
 
 ### d)
 Vypočítejte další charakteristiky polohy: [minimum](#minimum), [maximum](#maximum), [modus](#modus) (pokud existuje), [medián](#medián), [horní](#horní-kvartil) a [dolní kvartil](#dolní-kvartil) a všechny hodnoty slovně interpretujte.
@@ -86,9 +86,9 @@ max(osoby$IQ)
 #### Modus
 ```{r}
 library(modeest)
-mfv(osoby$IQ)
+mfv(sort(osoby$IQ))
 ```
-`Slovní interpretace:` Modus je nejčastější hodnotou v datovém souboru, tedy v tomto příkladě se jedná o IQ s hodnotou 86, 88, 90, 92, 96.
+`Slovní interpretace:` Modus je nejčastější hodnotou v datovém souboru, tedy v tomto příkladě je nečastější hodnota IQ 86, 88, 90, 92, 96 (viz. frekvenční tabulka) a jelikož to není jedna hodnota, tak modus nemůže být jednoznačně určen.
 
 #### Medián
 ```{r}
@@ -121,7 +121,7 @@ max(osoby$IQ) - min(osoby$IQ)
 ```{r}
 quantile(osoby$IQ, probs = 0.75) - quantile(osoby$IQ, probs = 0.25)
 ```
-`Slovní interpretace`: 
+`Slovní interpretace`: Hodnota kvartilového rozpětí je 9.5, což je hodnota, která označuje rozdíl mezi horním a dolním kvartilem, tedy v tomto případě mezi hodnotami 96 a 86.5.
 
 #### Rozptyl
 ```{r}
@@ -138,6 +138,8 @@ odchylka(osoby$IQ)
 ### f)
 Vypočítejte míru relativní variability: [variační koeficient](#variační-koeficient) a danou hodnotu slovně interpretujte.
 
+`Poznámka`: Tady jsem myslel, že mám míru variablity spočítat pomocí rozptylu z relativní četnosti (nevěděl jsem, že mi vyjde stejný výsledek jako u rozptylu), ale rozhodl jsem se to tu nechat
+
 #### Rozptyl z relativní četnosti
 ```{r}
 tabulkaCetnostiIQ <- as.data.frame(as.numeric(levels(tabulkaOsob$IQ)))
@@ -150,22 +152,28 @@ rozptyl_z_rel_cetnosti
 ```{r}
 sqrt(rozptyl_z_rel_cetnosti)/mean(osoby$IQ)
 ```
-`Slovní interpretace`: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, je tedy .
+`Slovní interpretace`: Variační koeficient se používá pro porovnání variablity mezi dvěmi datasety, je to tedy hodnota vyjadřující poměr mezi směrodatnou odchylkou a průměrnou hodnotou statistického znaku v souboru.
 
 ### g)
 Odpovídá podle Vás analyzovaná proměnná IQ normálnímu rozdělení? Uveďte argumenty, které podporují Vaše rozhodnutí.
 
-`Odpověď`: 
+`Odpověď`: Ano, z větší části odpovídá křivce hustoty normálního rozdělení, tedy nejméně hodnot je na začátku, na konci a nějvětší počet hodnot je kolem středu (průměru). Danou skutečnost lze vidět na histogramu IQ osob v souboru.
+
+```{r}
+hist(osoby$IQ)
+```
 
 ## Druhý úkol
 Jaká je pravděpodobnost, že z 9 kol losování rulety obdržíme:
 
-a) [6-krát číslo červené barvy](#a-1)
-b) [8-krát liché číslo](#b-1)
-c) [maximálně 4-krát číslo dělitelné 4](#c-1)
-d) [alespoň 8-krát číslo větší než 7](#d-1)
+a) [6-krát číslo červené barvy](#a-6-krát-číslo-červené-barvy)
+b) [8-krát liché číslo](#b-8-krát-liché-číslo)
+c) [maximálně 4-krát číslo dělitelné 4](#c-maximálně-4-krát-číslo-dělitelné-4)
+d) [alespoň 8-krát číslo větší než 7](#d-alespoň-8-krát-číslo-větší-než-7)
 
-### a)
+V tomto cvičení jsem použil vzorce binomockého rozdělení, tedy pro výpočet pravděpodobnostní funkce jsem použil funkci dbinom a pro výpočet distribuční funkce jsem použil pbinom.
+
+### a) 6-krát číslo červené barvy
 x = 6 ... označuje kolikrát má padnout červená barva
 
 n (size) = 9 ... počet pokusů
@@ -175,17 +183,21 @@ prob = počet červených čísel / počtem všech čísel (včetně nuly) = cho
 dbinom(x = 6, size = 9, prob = 18 / 37)
 ```
 
-### b)
+`Slovní odpověď`: Pravděpodobnost, že z 9 kol losování rulety obdržíme 6-krát číslo červené barvy je přibližně 15,1 %.
+
+### b) 8-krát liché číslo
 x = 8 ... označuje kolikrát má padnout liché číslo
 
 n (size) = 9 ... počet pokusů
 
-prob = počet lichých čísel / počtem všech čísel (včetně nuly) = choose(11, 1) / choose(37, 1) = 11 / 37
+prob = počet lichých čísel / počtem všech čísel (včetně nuly) = choose(18, 1) / choose(37, 1) = 18 / 37
 ```{r}
-dbinom(x = 8, size = 9, prob = 11 / 37)
+dbinom(x = 8, size = 9, prob = 18 / 37)
 ```
 
-### c)
+`Slovní odpověď`: Pravděpodobnost, že z 9 kol losování rulety obdržíme 8-krát liché číslo je přibližně 1,5 %.
+
+### c) maximálně 4-krát číslo dělitelné 4
 q = 4 ... označuje kolikrát maximálně má padnout číslo dělitelné 4
 
 n (size) = 9 ... počet pokusů
@@ -195,58 +207,95 @@ prob = počet čísel dělitelných 4 / počtem všech čísel (včetně nuly) =
 pbinom(q = 4, size = 9, prob = 9 / 37)
 ```
 
-### d)
+`Slovní odpověď`: Pravděpodobnost, že z 9 kol losování rulety obdržíme maximálně 4-krát číslo dělitelné 4 je přibližně 95,6 %.
+
+### d) alespoň 8-krát číslo větší než 7
 počet čísel větších než 7 = 29
 
 q = 8 ... označuje kolikrát má padnout číslo větší než 7 (>=)
 
 n (size) = 9 ... počet pokusů
 
-`Výpočet`: 1 - pravděpodobnost, že alespoň padne číslo menší než 7 8-krát
+`Výpočet`: P(A >= 8) = 1 - F(A < 8) = 1 - pravděpodobnost, že alespoň padne číslo menší než nebo rovno 7
 ```{r}
-1 - pbinom(q = 7, size = 9, prob = 8 / 37)
+1 - pbinom(q = 8, size = 9, prob = 29 / 37)
 ```
+
+`Slovní odpověď`: Pravděpodobnost, že z 9 kol losování rulety obdržíme alespoň 8-krát číslo větší než 7 je přibližně 11,2 %.
 
 ## Třetí úkol
 Výsledek měření proudu je náhodná veličina X s normálním rozdělením se střední hodnotou 𝜇 = 10 mA a směrodatnou odchylkou 𝜎 = 2 mA. Vypočítejte pravděpodobnost, že při náhodném měření bude naměřeno:
 
-a) [méně než 14 mA](#a-2)
-b) [více než 6 mA](#b-2)
-c) [více než 6 mA a méně než 14 mA](#c-2)
-d) [jakou hodnotu v mA překročí 85 % měření](#d-2)
+a) [méně než 14 mA](#a-méně-než-14-ma)
+b) [více než 6 mA](#b-více-než-6-ma)
+c) [více než 6 mA a méně než 14 mA](#c-více-než-6-ma-a-méně-než-14-ma)
+d) [jakou hodnotu v mA překročí 85 % měření](#d-jakou-hodnotu-v-ma-překročí-85-měření)
 
 
-### a)
-q ... horní hodnota rozmezí ()
+V rámci tohoto cvičení jsem použil vzorce normálního rozdělení a to konkrétně pro výpočet distribuční funkce (pnorm) a qnorm pro vyhlednání hodnot z tabulek.
 
- = 13mean ... střední hodnota
+### a) méně než 14 mA
+`Poznámka`: Z hodin elektrotechniky si toho moc nepamatuji, ale nemyslím si, že proud by mohl jít do záporu, což by odpovídalo koncepci Gaussovy diody, proto jsem zvolil rozmezí <0;13>
 
- = 10sd = směrodatná odchylka
-` = 2``{r}
-pnorm(q = 13, mean = 10, sd = 2)
-```
+q2 ... horní hodnota rozmezí (chceme hodnoty menší než 14 mA proto je q2 rovno 13) = 13
 
+q1 ... dolní hodnota rozmezí (minimální naměřený proud) = 0
 
-### b)
-q ... dolní hodnota rozmezí (je třeba více než 6, proto q = 7)
-``
 mean ... střední hodnota = 10
 
-sd = směrodatná odchylka = 2
-`{r}
-pnorm(q = 7, mean = 10, sd = 2)
+sd ... směrodatná odchylka = 2
+```{r}
+pnorm(q = 13, mean = 10, sd = 2) - pnorm(q = 0, mean = 10, sd = 2)
+# pnorm(q = 0, mean = 10, sd = 2) ... přestože se nejedná o velké číslo, tak dle mé poznámky by se mělo odečíst.
 ```
 
-### c)
-``q1 ... dolní hodnota rozmezí = 7
+`Slovní interpretace`: Pravděpodobnost, že naměříme proud menší než 14 mA je 93,3 %.
+
+### b) více než 6 mA
+q ... dolní hodnota rozmezí (je třeba více než 6, proto q = 7)
+
+mean ... střední hodnota = 10
+
+sd ... směrodatná odchylka = 2
+```{r}
+pnorm(q = 6, mean = 10, sd = 2, lower.tail = FALSE)
+```
+
+`Slovní interpretace`: Pravděpodobnost, že naměříme proud větší než 6 mA je přibližně 97,7 %.
+
+### c) více než 6 mA a méně než 14 mA
+
+q1 ... dolní hodnota rozmezí = 7
 
 q2 ... horní hodnota rozmezí = 13
 
 mean ... střední hodnota = 10
 
 sd = směrodatná odchylka = 2
-`{r}
+```{r}
 pnorm(q = 13, mean = 10, sd = 2) - pnorm(q = 7, mean = 10, sd = 2)
 ```
 
-### d)
+`Slovní interpretace`: Pravděpodobnost, že naměříme proud v rozmezí 6 mA a 14 mA je 86,6 %.
+
+### d) jakou hodnotu v mA překročí 85 % měření
+
+Výpočet 85 % kvantilu - x0,85
+
+x0,85 = u0,85 * 𝜎 + 𝜇
+
+u0,85 = 1.036433
+
+𝜎 = 2
+
+𝜇 = 10
+
+x0,85 = 1.036433 * 2 + 10 = 12.07287
+
+```{r}
+qnorm(p = 0.85, mean = 0, sd = 1)
+x0.85 <- qnorm(p = 0.85, mean = 0, sd = 1) * 2 + 10
+x0.85
+```
+
+`Slovní interpretace`: Při přibližné hodnotě 12,1 mA je překročeno 85 % měření.

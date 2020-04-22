@@ -218,7 +218,7 @@ n (size) = 9 ... počet pokusů
 
 `Výpočet`: P(A >= 8) = 1 - F(A < 8) = 1 - pravděpodobnost, že alespoň padne číslo menší než nebo rovno 7
 ```{r}
-1 - pbinom(q = 8, size = 9, prob = 29 / 37)
+1 - pbinom(q = 7, size = 9, prob = 29 / 37)
 ```
 
 `Slovní odpověď`: Pravděpodobnost, že z 9 kol losování rulety obdržíme alespoň 8-krát číslo větší než 7 je přibližně 11,2 %.

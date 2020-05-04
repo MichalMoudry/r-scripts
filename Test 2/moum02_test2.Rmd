@@ -175,4 +175,6 @@ prumer_dotaci <- mean(dotace_konkurenci)
 dotace_sd <- sqrt((sum((dotace_konkurenci - prumer_dotaci) ^ 2))/(length(dotace_konkurenci) - 1))
 dotace_T <- ((prumer_dotaci - 60819429) / dotace_sd) * sqrt(length(dotace_konkurenci))
 dotace_T
+
+qnorm(p = 0.99, mean = prumer_dotaci, sd = dotace_sd)
 ```

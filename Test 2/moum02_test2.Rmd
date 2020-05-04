@@ -25,22 +25,62 @@ pobočka.C 42 59 21 72 74 88 66
 
 pobočka.D 61 63 62 70 61 67 63
 
+### Řešení
+Pro ověření, zda se významně odlišuje průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách je třeba spočítat testové kritérium (F) a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
 
+  - Alternativa je v tomto případě, že se průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen významně neodlišuje.
+```{r}
+pobocky_data <- data.frame(
+  pobocky = c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", "B", "B", "B", "C", "C", "C", "C", "C", "C", "C", "D", "D", "D", "D", "D", "D", "D"),
+  obslouzeni_zakanici = c(51, 36, 34, 57, 54, 67, 66, 52, 52, 54, 47, 48, 47, 51, 42, 59, 21, 72, 74, 88, 66, 61, 63, 62, 70, 61, 67, 63)
+)
+
+qf(p = 0.9, df1 = 3, df2 = 24)
+
+pobocky_aov <- aov(formula = pobocky_data$obslouzeni_zakanici ~ pobocky_data$pobocky, data = pobocky_data)
+pobocky_aov_summary <- summary(pobocky_aov)
+
+meziskupinovy_rozptyl <- pobocky_aov_summary[[1]][["Sum Sq"]][[1]]
+meziskupinovy_rozptyl
+
+vnitroskupinovy_rozptyl <- pobocky_aov_summary[[1]][["Sum Sq"]][[2]]
+vnitroskupinovy_rozptyl
+
+pobocky_F <- (meziskupinovy_rozptyl/3)/(vnitroskupinovy_rozptyl/(length(pobocky_data$obslouzeni_zakanici) - 4))
+pobocky_F
+```
+`Odpověď`:
+
+  - Testové kritérium ... F = (meziskupinový rozptyl/[počet kategorií - 1])/(vnitroskupinový rozptyl/[počet prvků - počet kategorií])
+  
+    - F = (894.679/3)/(4152/24) = 1.723851
+    
+  - α = 0,1
+  
+  - F1-α = 2.32739
+  
+    - df1 = k - 1 = 4 - 1 = 3
+    
+    - df2 = n - k = 28 - 4 = 24
+    
+  - Kritický obor: Wα = {F >= F1-α} = {1.723851 >= 2.32739}
+  
+  - Nezamítáme ve prospěch alternativy, tedy průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách se význmaně neodlišuje.
 
 ## Druhý příklad
 U 19 pracovníků byla zjištěna výše jejich platu (Kč) a délka praxe (měsíce). Vstupní údaje jsou uspořádany v tabulce níže:
 
-a) Pomocí regresní přímky vyjádřete závislost výše platu na délce praxe.
+a) [Pomocí regresní přímky vyjádřete závislost výše platu na délce praxe.](#a-závislost-výše-platu-na-délce-praxe)
 
-b) Pomocí testu ověřte, zda se jedná o vhodný model.
+b) [Pomocí testu ověřte, zda se jedná o vhodný model.](b-test-vhodnosti-modelu)
 
-c) Pomocí vhodných testů ověřte významnost všech parametrů modelu.
+c) [Pomocí vhodných testů ověřte významnost všech parametrů modelu.](#c-významnost-parametrů-modelu)
 
-d) Zhodnoťte kvalitu regresního modelu pomocí vhodného koeficientu a jeho hodnotu interpretujte.
+d) [Zhodnoťte kvalitu regresního modelu pomocí vhodného koeficientu a jeho hodnotu interpretujte.](#d-kvalita-regresního-modelu)
 
-e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.
+e) [Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.](#e-interpretujte-věcně-hodnotu-vypočteného-regresního-koeficientu-b_1.)
 
-f) Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72
+f) [Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72](#f-odhadněte-střední-hodnotu-výše-platu-pro-pracovníka-s-délkou-praxe-72)
 
 ### Definice proměnných
 ```{r}
@@ -68,8 +108,36 @@ scatter.smooth(pracovnici_data$delka_praxe, pracovnici_data$plat)
 
 
 ```{r}
-
+b0
+b1
 ```
+
+### b) Test vhodnosti modelu
+Pro otestování modelu (testují se všechny parametry najednou) je potřeba spočítat testové kritérium (F) a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
+
+  - Alternativa je v tomto případě, že mezi Y a X exsituje statisticky významná lin. závislost.
+```{r}
+summary_fit_pracovnici$fstatistic[1]
+qf(p = 0.95, df1 = 1, df2 = 17)
+```
+`Odpověď`:
+
+  - α = 0,05
+
+  - Stupně volnosti: df1 = p - 1, df2 = n - p
+  
+    - df1 = 2 - 1, df2 = 19 - 2
+  
+  - F1-α = 4.451322
+
+  - Testové kritérium: 0.000309009
+  
+  - Kritický obor: Wα = {F >= F1-α} = {0.000309009  >= 4.451322}
+  
+  - Nezamítáme ve prospěch alternativy, tedy mezi Y a X neexistuje statisticky význmaná lineární závislost.
+  
+### c) Významnost parametrů modelu
+
 
 ### d) Kvalita regresního modelu
 Kvalita regresního modelu se dá určit podle koeficientu determinace.

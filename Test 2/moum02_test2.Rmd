@@ -1,0 +1,50 @@
+---
+title: "Test 2"
+author: "Michal Moudrý"
+date: "5/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Obsah
+- [První příklad](#první-příklad)
+- [Druhý příklad](#druhý-příklad)
+- [Třetí příklad](#třetí-příklad)
+
+## První příklad
+Obchodní společnost sledovala výkonnost svých pokladních ve 4 různých pobočkách (A, B, C, D). Na 10% hladině významnosti ověřte, zda se významně odlišuje průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách. Pokud ano, určete koeﬁcient, který vyjadřuje míru této závislosti.
+
+pobočka.A 51 36 34 57 54 67 66
+
+pobočka.B 52 52 54 47 48 47 51
+
+pobočka.C 42 59 21 72 74 88 66
+
+pobočka.D 61 63 62 70 61 67 63
+
+
+
+## Druhý příklad
+U 19 pracovníků byla zjištěna výše jejich platu (Kč) a délka praxe (měsíce). Vstupní údaje jsou uspořádany v tabulce níže:
+
+a) Pomocí regresní přímky vyjádřete závislost výše platu na délce praxe.
+
+b) Pomocí testu ověřte, zda se jedná o vhodný model.
+
+c) Pomocí vhodných testů ověřte významnost všech parametrů modelu.
+
+d) Zhodnoťte kvalitu regresního modelu pomocí vhodného koeficientu a jeho hodnotu interpretujte.
+
+e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.
+
+f) Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72
+
+
+
+## Třetí příklad
+Jedna velká potravinářská firma, získala oznámení od dotační komise, že ji v rámci dotačního programu na podporu malých podnikatelů byla udělena dotace. Výše dotace ještě nebyla stanovena. Firma předpokládá, že výše dotace bude asi 60819429 Kč. Firma si udělala průzkum u 7 svých konkurentů. Nezávislý odborník předpokládá, že výše dotace bude nižší než předpoklad firmy. Ověřte na hladině významnosti 0.1 %, zda má pravdu spíš firma nebo nezávislý odborník (předpokládejte, že výše dotace má normální rozdělení).
+
+

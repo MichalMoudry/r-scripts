@@ -159,9 +159,20 @@ Y = 14905.56 + (-0.3717925) * 72
 ```{r}
 b0 + (b1 * 72)
 ```
-`Odpověď`: Odhadnutá střední hodnota výše platu je 14878.79 Kč.
+`Odpověď`: Odhadnutá střední hodnota výše platu je 14878,79 Kč.
 
 ## Třetí příklad
 Jedna velká potravinářská firma, získala oznámení od dotační komise, že ji v rámci dotačního programu na podporu malých podnikatelů byla udělena dotace. Výše dotace ještě nebyla stanovena. Firma předpokládá, že výše dotace bude asi 60819429 Kč. Firma si udělala průzkum u 7 svých konkurentů. Nezávislý odborník předpokládá, že výše dotace bude nižší než předpoklad firmy. Ověřte na hladině významnosti 0.1 %, zda má pravdu spíš firma nebo nezávislý odborník (předpokládejte, že výše dotace má normální rozdělení).
 
+### Řešení
+Pro otestování hypotézy, zda má pravdu nezávislý odborník předpokládá, že výše dotace bude nižší než předpoklad firmy je třeba spočítat střední hodnotu normálního rozdělení, testové kritérium (T).
 
+Předpoklad H0: μ = μ0 = 60819429
+Alternativa H1: μ < μ0
+```{r}
+dotace_konkurenci <- c(53800000, 69100000, 47100000, 51600000, 64000000, 61700000, 46900000)
+prumer_dotaci <- mean(dotace_konkurenci)
+dotace_sd <- sqrt((sum((dotace_konkurenci - prumer_dotaci) ^ 2))/(length(dotace_konkurenci) - 1))
+dotace_T <- ((prumer_dotaci - 60819429) / dotace_sd) * sqrt(length(dotace_konkurenci))
+dotace_T
+```

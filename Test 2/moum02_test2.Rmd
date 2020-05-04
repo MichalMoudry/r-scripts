@@ -103,7 +103,7 @@ b1 <- summary_fit_pracovnici$coefficients[2]
 
 Grafické znázornění regresní přímky:
 ```{r}
-scatter.smooth(pracovnici_data$delka_praxe, pracovnici_data$plat)
+scatter.smooth(pracovnici_data$plat, pracovnici_data$delka_praxe)
 ```
 
 
@@ -132,19 +132,26 @@ qf(p = 0.95, df1 = 1, df2 = 17)
 
   - Testové kritérium: 0.000309009
   
-  - Kritický obor: Wα = {F >= F1-α} = {0.000309009  >= 4.451322}
+  - Kritický obor: Wα = {F >= F1-α} = {0.000309009 >= 4.451322}
   
   - Nezamítáme ve prospěch alternativy, tedy mezi Y a X neexistuje statisticky význmaná lineární závislost.
   
 ### c) Významnost parametrů modelu
+Pro otestování významnosti regresního parametru b1 je třeba spočítat t-hodnotu a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
 
+  - Alternativa je, jestli je lineární závislost statisticky významná.
+```{r}
+summary_fit_pracovnici
+```
+`Odpověď`:
+  - t-hodnota: 
 
 ### d) Kvalita regresního modelu
 Kvalita regresního modelu se dá určit podle koeficientu determinace.
 ```{r}
 summary_fit_pracovnici$r.squared
 ```
-`Odpověď`: V tomto případě hodnota koeficientu determinace je 1.817667e-05, tedy daný model je špatný, tedy špatně vysvětluje variabilitu v souboru.
+`Odpověď`: V tomto případě hodnota koeficientu determinace je 1.817667e-05, tedy daný model je špatný, tedy špatně vysvětluje variabilitu v souboru. Taky tento model špatně predikuje reálné datové body.
 
 ### e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.
 ```{r}
@@ -168,6 +175,7 @@ Jedna velká potravinářská firma, získala oznámení od dotační komise, ž
 Pro otestování hypotézy, zda má pravdu nezávislý odborník předpokládá, že výše dotace bude nižší než předpoklad firmy je třeba spočítat střední hodnotu normálního rozdělení, testové kritérium (T).
 
 Předpoklad H0: μ = μ0 = 60819429
+
 Alternativa H1: μ < μ0
 ```{r}
 dotace_konkurenci <- c(53800000, 69100000, 47100000, 51600000, 64000000, 61700000, 46900000)
@@ -176,5 +184,18 @@ dotace_sd <- sqrt((sum((dotace_konkurenci - prumer_dotaci) ^ 2))/(length(dotace_
 dotace_T <- ((prumer_dotaci - 60819429) / dotace_sd) * sqrt(length(dotace_konkurenci))
 dotace_T
 
-qnorm(p = 0.99, mean = prumer_dotaci, sd = dotace_sd)
+qnorm(p = 0.99, mean = 0, sd = 1)
 ```
+`Odpověď`:
+
+  - α = 0,01
+  
+  - t1-α = 2.326348
+  
+    - -t1-α = -2.326348
+    
+  - Testové kritérium: -1.370828
+  
+  - Kritický obor: Wα = {t <= -t1-α} = {-1.370828 <= -2.326348}
+  
+  - Nezamítáme ve prospěch alternativy, tedy pravdu má spíš firma než nezávislý odborník.

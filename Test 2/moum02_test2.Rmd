@@ -42,7 +42,56 @@ e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.
 
 f) Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72
 
+### Definice proměnných
+```{r}
+pracovnici_data <- data.frame(
+  plat = c(12475.40, 12086.24, 15081.52, 19619.64, 16994.36, 14589.36, 16493.48, 12544.12, 13949.08, 10610.84, 18142.40, 14774.16, 10154.92, 11348.00, 16246.84, 18058.12, 19503.32, 17058.60, 12990.72),
+  delka_praxe = c(135, 56, 13, 91, 59, 84, 37, 53, 77, 71, 110, 4, 48, 75, 96, 78, 58, 40, 118)
+)
 
+fit_pracovnici <- lm (
+  formula = pracovnici_data$plat ~ pracovnici_data$delka_praxe,
+  data = pracovnici_data
+)
+summary_fit_pracovnici <- summary(fit_pracovnici)
+
+b0 <- summary_fit_pracovnici$coefficients[1]
+b1 <- summary_fit_pracovnici$coefficients[2]
+```
+
+### a) Závislost výše platu na délce praxe
+
+Grafické znázornění regresní přímky:
+```{r}
+scatter.smooth(pracovnici_data$delka_praxe, pracovnici_data$plat)
+```
+
+
+```{r}
+
+```
+
+### d) Kvalita regresního modelu
+Kvalita regresního modelu se dá určit podle koeficientu determinace.
+```{r}
+summary_fit_pracovnici$r.squared
+```
+`Odpověď`: V tomto případě hodnota koeficientu determinace je 1.817667e-05, tedy daný model je špatný, tedy špatně vysvětluje variabilitu v souboru.
+
+### e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.
+```{r}
+b1
+```
+`Odpověď`: Koeficient B1 má hodnotu -0.3717925, tedy pokud se délka praxe pracovníka sníží/zvýší o 1, tak plat sníží/zvýší o -0.3717925 Kč.
+
+### f) Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72
+Pro odhad střední hodnoty stačí dosadit do vzorce pro regresní přímku, tedy Y = b0 + b1 * x, kdy x je v tomto případě 72.
+
+Y = 14905.56 + (-0.3717925) * 72
+```{r}
+b0 + (b1 * 72)
+```
+`Odpověď`: Odhadnutá střední hodnota výše platu je 14878.79 Kč.
 
 ## Třetí příklad
 Jedna velká potravinářská firma, získala oznámení od dotační komise, že ji v rámci dotačního programu na podporu malých podnikatelů byla udělena dotace. Výše dotace ještě nebyla stanovena. Firma předpokládá, že výše dotace bude asi 60819429 Kč. Firma si udělala průzkum u 7 svých konkurentů. Nezávislý odborník předpokládá, že výše dotace bude nižší než předpoklad firmy. Ověřte na hladině významnosti 0.1 %, zda má pravdu spíš firma nebo nezávislý odborník (předpokládejte, že výše dotace má normální rozdělení).

@@ -82,6 +82,7 @@ e) [Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.](#e
 
 f) [Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72](#f-odhadněte-střední-hodnotu-výše-platu-pro-pracovníka-s-délkou-praxe-72)
 
+
 ### Definice proměnných
 ```{r}
 pracovnici_data <- data.frame(
@@ -101,11 +102,10 @@ b1 <- summary_fit_pracovnici$coefficients[2]
 
 ### a) Závislost výše platu na délce praxe
 
-Grafické znázornění regresní přímky:
+*Grafické znázornění regresní přímky*:
 ```{r}
 scatter.smooth(pracovnici_data$delka_praxe, pracovnici_data$plat)
 ```
-
 
 ```{r}
 b0
@@ -113,10 +113,12 @@ b1
 ```
 y = 14905.56 + (-0.3717925) * x
 
+`Odpověď`: Dle rovnice y = 14905.56 + (-0.3717925) * x, lze říci, že čím delší praxe, tím menší plat. Danou realitu lze vidět i na grafickém znázornění regresní přímky.
+
 ### b) Test vhodnosti modelu
 Pro otestování modelu (testují se všechny parametry najednou) je potřeba spočítat testové kritérium (F) a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
 
-  - Alternativa je v tomto případě, že mezi Y a X exsituje statisticky významná lin. závislost.
+  - Alternativa je v tomto případě, že mezi Y a X exsituje statisticky významná lineární závislost.
 ```{r}
 summary_fit_pracovnici$fstatistic[1]
 qf(p = 0.95, df1 = 1, df2 = 17)
@@ -127,32 +129,53 @@ qf(p = 0.95, df1 = 1, df2 = 17)
 
   - Stupně volnosti: df1 = p - 1, df2 = n - p
   
-    - df1 = 2 - 1, df2 = 19 - 2
+    - df1 = 2 - 1 = 1
+    
+    - df2 = 19 - 2 = 17
   
   - F1-α = 4.451322
 
-  - Testové kritérium: 0.000309009
+  - Testové kritérium: F = 0.000309009
   
   - Kritický obor: Wα = {F >= F1-α} = {0.000309009 >= 4.451322}
   
-  - Nezamítáme ve prospěch alternativy, tedy mezi Y a X neexistuje statisticky význmaná lineární závislost.
+  - Nezamítáme ve prospěch alternativy, tedy mezi Y a X neexistuje statisticky významná lineární závislost.
   
 ### c) Významnost parametrů modelu
 Pro otestování významnosti regresního parametru b1 je třeba spočítat t-hodnotu a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
 
-  - Alternativa je, jestli je lineární závislost statisticky významná.
+  - Alternativa je, jestli je lineární závislost s X *asi* statisticky významná.
+  
+H0: βj = 0
+
+H1: βj != 0
 ```{r}
-summary_fit_pracovnici
+summary_fit_pracovnici$coefficients
 ```
 `Odpověď`:
-  - t-hodnota: 
+
+  - α = 0,05
+
+  - t-hodnota: -0.01757865
+  
+  - Stupně volnosti: 19 - 2 = 17
+  
+  - t1-α/2 = t0.975 = 2.11
+  
+  - Kritický obor: Wα = {|-0.01757865| >= 2.11}
+  
+  - p-hodnota: 9.861797e-01
+  
+    - p-hodnota > α => nezamítáme hypotézu
+  
+  - Nezamítáme testovanou hypotézu ve prospěch alternativy, tedy lineární závislost je statisticky nevýznamná.
 
 ### d) Kvalita regresního modelu
 Kvalita regresního modelu se dá určit podle koeficientu determinace.
 ```{r}
 summary_fit_pracovnici$r.squared
 ```
-`Odpověď`: V tomto případě hodnota koeficientu determinace je 1.817667e-05, tedy daný model je špatný, tedy špatně vysvětluje variabilitu v souboru. Taky tento model špatně predikuje reálné datové body.
+`Odpověď`: V tomto případě hodnota koeficientu determinace je 1.817667e-05, tedy kvalita daného modelu je špatná, což znamená, že špatně vysvětluje variabilitu v souboru. Taky tento model špatně predikuje reálné datové body.
 
 ### e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.
 ```{r}

@@ -1,7 +1,7 @@
 ---
-title: "Test 2"
+title: "Průběžný test č. 2"
 author: "Michal Moudrý"
-date: "5/4/2020"
+date: "5/5/2020"
 output: html_document
 ---
 
@@ -28,7 +28,7 @@ pobočka.D 61 63 62 70 61 67 63
 ### Řešení
 Pro ověření, zda se významně odlišuje průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách je třeba spočítat testové kritérium (F) a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
 
-  - Alternativa je v tomto případě, že se průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen významně neodlišuje.
+  - Alternativa je v tomto případě, že se průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen významně odlišuje.
 ```{r}
 pobocky_data <- data.frame(
   pobocky = c("A", "A", "A", "A", "A", "A", "A", "B", "B", "B", "B", "B", "B", "B", "C", "C", "C", "C", "C", "C", "C", "D", "D", "D", "D", "D", "D", "D"),
@@ -65,14 +65,14 @@ pobocky_F
     
   - Kritický obor: Wα = {F >= F1-α} = {1.723851 >= 2.32739}
   
-  - Nezamítáme ve prospěch alternativy, tedy průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách se význmaně neodlišuje.
+  - Nezamítáme ve prospěch alternativy, tedy průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách se významně neodlišuje (tzn. není velký rozdíl mezi kategoriemi).
 
 ## Druhý příklad
 U 19 pracovníků byla zjištěna výše jejich platu (Kč) a délka praxe (měsíce). Vstupní údaje jsou uspořádany v tabulce níže:
 
 a) [Pomocí regresní přímky vyjádřete závislost výše platu na délce praxe.](#a-závislost-výše-platu-na-délce-praxe)
 
-b) [Pomocí testu ověřte, zda se jedná o vhodný model.](b-test-vhodnosti-modelu)
+b) [Pomocí testu ověřte, zda se jedná o vhodný model.](#b-test-vhodnosti-modelu)
 
 c) [Pomocí vhodných testů ověřte významnost všech parametrů modelu.](#c-významnost-parametrů-modelu)
 

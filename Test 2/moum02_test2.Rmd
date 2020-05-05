@@ -139,6 +139,10 @@ qf(p = 0.95, df1 = 1, df2 = 17)
   
   - Kritický obor: Wα = {F >= F1-α} = {0.000309009 >= 4.451322}
   
+  - p-hodnota: 0.9862
+  
+    - p-hodnota > α => nezamítáme hypotézu
+  
   - Nezamítáme ve prospěch alternativy, tedy mezi Y a X neexistuje statisticky významná lineární závislost.
   
 ### c) Významnost parametrů modelu

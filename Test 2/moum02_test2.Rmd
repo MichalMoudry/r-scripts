@@ -103,7 +103,7 @@ b1 <- summary_fit_pracovnici$coefficients[2]
 
 Grafické znázornění regresní přímky:
 ```{r}
-scatter.smooth(pracovnici_data$plat, pracovnici_data$delka_praxe)
+scatter.smooth(pracovnici_data$delka_praxe, pracovnici_data$plat)
 ```
 
 
@@ -111,6 +111,7 @@ scatter.smooth(pracovnici_data$plat, pracovnici_data$delka_praxe)
 b0
 b1
 ```
+y = 14905.56 + (-0.3717925) * x
 
 ### b) Test vhodnosti modelu
 Pro otestování modelu (testují se všechny parametry najednou) je potřeba spočítat testové kritérium (F) a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
@@ -160,9 +161,9 @@ b1
 `Odpověď`: Koeficient B1 má hodnotu -0.3717925, tedy pokud se délka praxe pracovníka sníží/zvýší o 1, tak plat sníží/zvýší o -0.3717925 Kč.
 
 ### f) Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72
-Pro odhad střední hodnoty stačí dosadit do vzorce pro regresní přímku, tedy Y = b0 + b1 * x, kdy x je v tomto případě 72.
+Pro odhad střední hodnoty stačí dosadit do vzorce pro regresní přímku, tedy y = b0 + b1 * x, kdy x je v tomto případě 72.
 
-Y = 14905.56 + (-0.3717925) * 72
+y = 14905.56 + (-0.3717925) * 72
 ```{r}
 b0 + (b1 * 72)
 ```
@@ -184,18 +185,18 @@ dotace_sd <- sqrt((sum((dotace_konkurenci - prumer_dotaci) ^ 2))/(length(dotace_
 dotace_T <- ((prumer_dotaci - 60819429) / dotace_sd) * sqrt(length(dotace_konkurenci))
 dotace_T
 
-qnorm(p = 0.99, mean = 0, sd = 1)
+qt(p = 0.99, df = 6)
 ```
 `Odpověď`:
 
   - α = 0,01
   
-  - t1-α = 2.326348
+  - t1-α = 3.142668
   
-    - -t1-α = -2.326348
+    - -t1-α = -3.142668
     
   - Testové kritérium: -1.370828
   
-  - Kritický obor: Wα = {t <= -t1-α} = {-1.370828 <= -2.326348}
+  - Kritický obor: Wα = {t <= -t1-α} = {-1.370828 <= -3.142668}
   
   - Nezamítáme ve prospěch alternativy, tedy pravdu má spíš firma než nezávislý odborník.

@@ -53,17 +53,17 @@ pobocky_F
 
   - Testové kritérium ... F = (meziskupinový rozptyl/[počet kategorií - 1])/(vnitroskupinový rozptyl/[počet prvků - počet kategorií])
   
-    - F = (894.679/3)/(4152/24) = 1.723851
+    - F = (894,679/3)/(4152/24) = 1,723851
     
   - α = 0,1
   
-  - F1-α = 2.32739
+  - F1-α = 2,32739
   
     - df1 = k - 1 = 4 - 1 = 3
     
     - df2 = n - k = 28 - 4 = 24
     
-  - Kritický obor: Wα = {F >= F1-α} = {1.723851 >= 2.32739}
+  - Kritický obor: Wα = {F >= F1-α} = {1,723851 >= 2,32739}
   
   - Nezamítáme ve prospěch alternativy, tedy průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách se významně neodlišuje (tzn. není velký rozdíl mezi kategoriemi).
 
@@ -111,9 +111,9 @@ scatter.smooth(pracovnici_data$delka_praxe, pracovnici_data$plat)
 b0
 b1
 ```
-y = 14905.56 + (-0.3717925) * x
+y = 14905,56 + (-0.3717925) * x
 
-`Odpověď`: Dle rovnice y = 14905.56 + (-0.3717925) * x, lze říci, že čím delší praxe, tím menší plat. Danou realitu lze vidět i na grafickém znázornění regresní přímky.
+`Odpověď`: Dle rovnice y = 14905,56 + (-0,3717925) * x, lze říci, že čím delší praxe, tím menší plat. Danou realitu lze vidět i na grafickém znázornění regresní přímky.
 
 ### b) Test vhodnosti modelu
 Pro otestování modelu (testují se všechny parametry najednou) je potřeba spočítat testové kritérium (F) a podle toho, jestli spadá/nespadá do testového kritéria (Wα), tak buď zamítáme ve prospěch alternativy nebo ne.
@@ -133,13 +133,13 @@ qf(p = 0.95, df1 = 1, df2 = 17)
     
     - df2 = 19 - 2 = 17
   
-  - F1-α = 4.451322
+  - F1-α = 4,451322
 
-  - Testové kritérium: F = 0.000309009
+  - Testové kritérium: F = 0,000309009
   
-  - Kritický obor: Wα = {F >= F1-α} = {0.000309009 >= 4.451322}
+  - Kritický obor: Wα = {F >= F1-α} = {0,000309009 >= 4,451322}
   
-  - p-hodnota: 0.9862
+  - p-hodnota: 0,9862
   
     - p-hodnota > α => nezamítáme hypotézu
   
@@ -160,15 +160,15 @@ summary_fit_pracovnici$coefficients
 
   - α = 0,05
 
-  - t-hodnota: -0.01757865
+  - t-hodnota: -0,01757865
   
   - Stupně volnosti: 19 - 2 = 17
   
-  - t1-α/2 = t0.975 = 2.11
+  - t1-α/2 = t0.975 = 2,11
   
-  - Kritický obor: Wα = {|-0.01757865| >= 2.11}
+  - Kritický obor: Wα = {|-0,01757865| >= 2,11}
   
-  - p-hodnota: 9.861797e-01
+  - p-hodnota: 9,861797e-01
   
     - p-hodnota > α => nezamítáme hypotézu
   
@@ -179,18 +179,18 @@ Kvalita regresního modelu se dá určit podle koeficientu determinace.
 ```{r}
 summary_fit_pracovnici$r.squared
 ```
-`Odpověď`: V tomto případě hodnota koeficientu determinace je 1.817667e-05, tedy kvalita daného modelu je špatná, což znamená, že špatně vysvětluje variabilitu v souboru. Taky tento model špatně predikuje reálné datové body.
+`Odpověď`: V tomto případě hodnota koeficientu determinace je 1,817667e-05, tedy kvalita daného modelu je špatná, což znamená, že špatně vysvětluje variabilitu v souboru. Taky tento model špatně predikuje reálné datové body.
 
 ### e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.
 ```{r}
 b1
 ```
-`Odpověď`: Koeficient B1 má hodnotu -0.3717925, tedy pokud se délka praxe pracovníka sníží/zvýší o 1, tak plat sníží/zvýší o -0.3717925 Kč.
+`Odpověď`: Koeficient B1 má hodnotu -0,3717925, tedy pokud se délka praxe pracovníka sníží/zvýší o 1, tak plat sníží/zvýší o -0,3717925 Kč.
 
 ### f) Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72
 Pro odhad střední hodnoty stačí dosadit do vzorce pro regresní přímku, tedy y = b0 + b1 * x, kdy x je v tomto případě 72.
 
-y = 14905.56 + (-0.3717925) * 72
+y = 14905,56 + (-0,3717925) * 72
 ```{r}
 b0 + (b1 * 72)
 ```
@@ -202,7 +202,7 @@ Jedna velká potravinářská firma, získala oznámení od dotační komise, ž
 ### Řešení
 Pro otestování hypotézy, zda má pravdu nezávislý odborník předpokládá, že výše dotace bude nižší než předpoklad firmy je třeba spočítat střední hodnotu normálního rozdělení, testové kritérium (T).
 
-Předpoklad H0: μ = μ0 = 60819429
+Předpoklad H0: μ = μ0 = 60 819 429
 
 Alternativa H1: μ < μ0
 ```{r}
@@ -218,12 +218,12 @@ qt(p = 0.99, df = 6)
 
   - α = 0,01
   
-  - t1-α = 3.142668
+  - t1-α = 3,142668
   
-    - -t1-α = -3.142668
+    - -t1-α = -3,142668
     
-  - Testové kritérium: -1.370828
+  - Testové kritérium: -1,370828
   
-  - Kritický obor: Wα = {t <= -t1-α} = {-1.370828 <= -3.142668}
+  - Kritický obor: Wα = {t <= -t1-α} = {-1,370828 <= -3,142668}
   
   - Nezamítáme ve prospěch alternativy, tedy pravdu má spíš firma než nezávislý odborník.

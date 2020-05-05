@@ -413,15 +413,15 @@ pobocky_F</code></pre>
 <ul>
 <li><p>Testové kritérium … F = (meziskupinový rozptyl/[počet kategorií - 1])/(vnitroskupinový rozptyl/[počet prvků - počet kategorií])</p>
 <ul>
-<li>F = (894.679/3)/(4152/24) = 1.723851</li>
+<li>F = (894,679/3)/(4152/24) = 1,723851</li>
 </ul></li>
 <li><p>α = 0,1</p></li>
-<li><p>F1-α = 2.32739</p>
+<li><p>F1-α = 2,32739</p>
 <ul>
 <li><p>df1 = k - 1 = 4 - 1 = 3</p></li>
 <li><p>df2 = n - k = 28 - 4 = 24</p></li>
 </ul></li>
-<li><p>Kritický obor: Wα = {F &gt;= F1-α} = {1.723851 &gt;= 2.32739}</p></li>
+<li><p>Kritický obor: Wα = {F &gt;= F1-α} = {1,723851 &gt;= 2,32739}</p></li>
 <li><p>Nezamítáme ve prospěch alternativy, tedy průměrný počet obsloužených zákazníků za hodinu u jednotlivých pokladen v různých pobočkách se významně neodlišuje (tzn. není velký rozdíl mezi kategoriemi).</p></li>
 </ul>
 </div>
@@ -462,8 +462,8 @@ b1 &lt;- summary_fit_pracovnici$coefficients[2]</code></pre>
 <pre><code>## [1] 14905.56</code></pre>
 <pre class="r"><code>b1</code></pre>
 <pre><code>## [1] -0.3717925</code></pre>
-<p>y = 14905.56 + (-0.3717925) * x</p>
-<p><code>Odpověď</code>: Dle rovnice y = 14905.56 + (-0.3717925) * x, lze říci, že čím delší praxe, tím menší plat. Danou realitu lze vidět i na grafickém znázornění regresní přímky.</p>
+<p>y = 14905,56 + (-0.3717925) * x</p>
+<p><code>Odpověď</code>: Dle rovnice y = 14905,56 + (-0,3717925) * x, lze říci, že čím delší praxe, tím menší plat. Danou realitu lze vidět i na grafickém znázornění regresní přímky.</p>
 </div>
 <div id="b-test-vhodnosti-modelu" class="section level3">
 <h3>b) Test vhodnosti modelu</h3>
@@ -484,10 +484,10 @@ b1 &lt;- summary_fit_pracovnici$coefficients[2]</code></pre>
 <li><p>df1 = 2 - 1 = 1</p></li>
 <li><p>df2 = 19 - 2 = 17</p></li>
 </ul></li>
-<li><p>F1-α = 4.451322</p></li>
-<li><p>Testové kritérium: F = 0.000309009</p></li>
-<li><p>Kritický obor: Wα = {F &gt;= F1-α} = {0.000309009 &gt;= 4.451322}</p></li>
-<li><p>p-hodnota: 0.9862</p>
+<li><p>F1-α = 4,451322</p></li>
+<li><p>Testové kritérium: F = 0,000309009</p></li>
+<li><p>Kritický obor: Wα = {F &gt;= F1-α} = {0,000309009 &gt;= 4,451322}</p></li>
+<li><p>p-hodnota: 0,9862</p>
 <ul>
 <li>p-hodnota &gt; α =&gt; nezamítáme hypotézu</li>
 </ul></li>
@@ -509,11 +509,11 @@ b1 &lt;- summary_fit_pracovnici$coefficients[2]</code></pre>
 <p><code>Odpověď</code>:</p>
 <ul>
 <li><p>α = 0,05</p></li>
-<li><p>t-hodnota: -0.01757865</p></li>
+<li><p>t-hodnota: -0,01757865</p></li>
 <li><p>Stupně volnosti: 19 - 2 = 17</p></li>
-<li><p>t1-α/2 = t0.975 = 2.11</p></li>
-<li><p>Kritický obor: Wα = {|-0.01757865| &gt;= 2.11}</p></li>
-<li><p>p-hodnota: 9.861797e-01</p>
+<li><p>t1-α/2 = t0.975 = 2,11</p></li>
+<li><p>Kritický obor: Wα = {|-0,01757865| &gt;= 2,11}</p></li>
+<li><p>p-hodnota: 9,861797e-01</p>
 <ul>
 <li>p-hodnota &gt; α =&gt; nezamítáme hypotézu</li>
 </ul></li>
@@ -525,18 +525,18 @@ b1 &lt;- summary_fit_pracovnici$coefficients[2]</code></pre>
 <p>Kvalita regresního modelu se dá určit podle koeficientu determinace.</p>
 <pre class="r"><code>summary_fit_pracovnici$r.squared</code></pre>
 <pre><code>## [1] 1.817667e-05</code></pre>
-<p><code>Odpověď</code>: V tomto případě hodnota koeficientu determinace je 1.817667e-05, tedy kvalita daného modelu je špatná, což znamená, že špatně vysvětluje variabilitu v souboru. Taky tento model špatně predikuje reálné datové body.</p>
+<p><code>Odpověď</code>: V tomto případě hodnota koeficientu determinace je 1,817667e-05, tedy kvalita daného modelu je špatná, což znamená, že špatně vysvětluje variabilitu v souboru. Taky tento model špatně predikuje reálné datové body.</p>
 </div>
 <div id="e-interpretujte-věcně-hodnotu-vypočteného-regresního-koeficientu-b_1." class="section level3">
 <h3>e) Interpretujte věcně hodnotu vypočteného regresního koeficientu b_1.</h3>
 <pre class="r"><code>b1</code></pre>
 <pre><code>## [1] -0.3717925</code></pre>
-<p><code>Odpověď</code>: Koeficient B1 má hodnotu -0.3717925, tedy pokud se délka praxe pracovníka sníží/zvýší o 1, tak plat sníží/zvýší o -0.3717925 Kč.</p>
+<p><code>Odpověď</code>: Koeficient B1 má hodnotu -0,3717925, tedy pokud se délka praxe pracovníka sníží/zvýší o 1, tak plat sníží/zvýší o -0,3717925 Kč.</p>
 </div>
 <div id="f-odhadněte-střední-hodnotu-výše-platu-pro-pracovníka-s-délkou-praxe-72" class="section level3">
 <h3>f) Odhadněte střední hodnotu výše platu pro pracovníka s délkou praxe 72</h3>
 <p>Pro odhad střední hodnoty stačí dosadit do vzorce pro regresní přímku, tedy y = b0 + b1 * x, kdy x je v tomto případě 72.</p>
-<p>y = 14905.56 + (-0.3717925) * 72</p>
+<p>y = 14905,56 + (-0,3717925) * 72</p>
 <pre class="r"><code>b0 + (b1 * 72)</code></pre>
 <pre><code>## [1] 14878.79</code></pre>
 <p><code>Odpověď</code>: Odhadnutá střední hodnota výše platu je 14878,79 Kč.</p>
@@ -548,7 +548,7 @@ b1 &lt;- summary_fit_pracovnici$coefficients[2]</code></pre>
 <div id="řešení-1" class="section level3">
 <h3>Řešení</h3>
 <p>Pro otestování hypotézy, zda má pravdu nezávislý odborník předpokládá, že výše dotace bude nižší než předpoklad firmy je třeba spočítat střední hodnotu normálního rozdělení, testové kritérium (T).</p>
-<p>Předpoklad H0: μ = μ0 = 60819429</p>
+<p>Předpoklad H0: μ = μ0 = 60 819 429</p>
 <p>Alternativa H1: μ &lt; μ0</p>
 <pre class="r"><code>dotace_konkurenci &lt;- c(53800000, 69100000, 47100000, 51600000, 64000000, 61700000, 46900000)
 prumer_dotaci &lt;- mean(dotace_konkurenci)
@@ -561,12 +561,12 @@ dotace_T</code></pre>
 <p><code>Odpověď</code>:</p>
 <ul>
 <li><p>α = 0,01</p></li>
-<li><p>t1-α = 3.142668</p>
+<li><p>t1-α = 3,142668</p>
 <ul>
-<li>-t1-α = -3.142668</li>
+<li>-t1-α = -3,142668</li>
 </ul></li>
-<li><p>Testové kritérium: -1.370828</p></li>
-<li><p>Kritický obor: Wα = {t &lt;= -t1-α} = {-1.370828 &lt;= -3.142668}</p></li>
+<li><p>Testové kritérium: -1,370828</p></li>
+<li><p>Kritický obor: Wα = {t &lt;= -t1-α} = {-1,370828 &lt;= -3,142668}</p></li>
 <li><p>Nezamítáme ve prospěch alternativy, tedy pravdu má spíš firma než nezávislý odborník.</p></li>
 </ul>
 </div>
